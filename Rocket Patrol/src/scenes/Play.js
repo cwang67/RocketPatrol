@@ -145,12 +145,14 @@ shipExplode(ship) {
       ship.reset();                         // reset ship position
       ship.alpha = 1;                       // make ship visible again
       boom.destroy();                       // remove explosion sprite
-      this.sound.play('sfx_explosion');
+      
     });       
 
     //score add and repaint
     this.p1Score += ship.points;
     this.scoreLeft.text = this.p1Score;
+
+    this.sound.play('sfx_explosion');
   }
 
 }
