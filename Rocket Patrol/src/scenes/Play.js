@@ -36,11 +36,4 @@ update()
     this.starfield.tilePositionX -= 4;
 }
 
-
-
-
-
-
-
-
 }
