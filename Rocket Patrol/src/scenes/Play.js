@@ -43,8 +43,11 @@ create()
 
 update()
 {
+    //updates tile sprite
     this.starfield.tilePositionX -= 4;
+
     this.p1Rocket.update();
+    
     //update spaceships (x3)
     this.ship01.update();               
     this.ship02.update();
