@@ -12,7 +12,6 @@ class Rocket extends Phaser.GameObjects.Sprite
       //pixels per frame
       this.moveSpeed = 2;
     }
-}
     
     update() 
     {
@@ -45,3 +44,4 @@ class Rocket extends Phaser.GameObjects.Sprite
             this.reset();
         }
     }
+}
