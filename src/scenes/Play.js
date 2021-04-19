@@ -19,7 +19,6 @@ preload()
 }
 
 
-
 create()
 {
     console.log('testing');
@@ -55,18 +54,19 @@ create()
     keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-    // this.p1Rocket.fire = keyF;
-    // this.p1Rocket.left = keyLEFT;
-    // this.p1Rocket.right = keyRIGHT;
+    this.p1Rocket.fire = keyF;
+    this.p1Rocket.left = keyLEFT;
+    this.p1Rocket.right = keyRIGHT;
 
-    // // defining keys for p2
-    // console.log('player 2');
-    // keyF2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-    // keyLEFT2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    // keyRIGHT2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-    // this.p2Rocket.fire = keyF2;
-    // this.p2Rocket.left = keyLEFT2;
-    // this.p2Rocket.right = keyRIGHT2;
+    // defining keys for p2
+    console.log('player 2');
+    keyF2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    keyLEFT2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    keyRIGHT2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.p2Rocket.fire = keyF2;
+    this.p2Rocket.left = keyLEFT2;
+    this.p2Rocket.right = keyRIGHT2;
+
 
 
 
@@ -80,7 +80,9 @@ create()
     //initializes score
     this.p1Score = 0;
     this.p2Score = 0;
-  
+    highScore = highScore;
+
+   
 
     //displays score
     let scoreConfig = 
@@ -97,7 +99,11 @@ create()
         fixedWidth: 100
     }
     this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
-    // this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*4, this.p2Score, scoreConfig)
+    scoreConfig.color = "#FF0000";
+    this.scoreRight = this.add.text(471, 54, this.p2Score, scoreConfig);
+
+
+
 
     //Game over flag
     this.gameOver = false;
@@ -108,11 +114,33 @@ create()
     this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
     this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
     this.gameOver = true;
+
+    //update highscore
+    this.pHigh = Math.max(this.p1Score, this.p2Score);
+
+    if(highScore < this.pHigh)
+        highScore = this.pHigh;
+
+    this.highScoreDisplay.text = "High Score: " + highScore;
+   
+  
     }, null, this);
+
+     //timer
+        scoreConfig.color = "#843605";
+        this.timer = this.add.text(game.config.width/2, 72, this.clock.getElapsedSeconds(), scoreConfig).setOrigin(0.5);
+
+        //highscore
+        this.highScoreDisplay = this.add.text(game.config.width/2, 465, "High Score: " + highScore, scoreConfig).setOrigin(0.5)
+
+  
 }
 
 update()
 {
+     //update timer
+     this.timer.text = (game.settings.gameTimer / 1000) - Math.floor(this.clock.getElapsedSeconds());
+
     //check key input for restarting the game
     if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR))
     {
@@ -129,6 +157,9 @@ update()
 
     this.p1Rocket.update();
     this.p2Rocket.update();
+
+
+
 
 
     //update spaceships
@@ -172,6 +203,7 @@ update()
         this.p2Rocket.reset();
         this.shipExplode(this.ship01);
     }
+  
 }
 
 checkCollision(rocket, ship)
@@ -190,7 +222,7 @@ checkCollision(rocket, ship)
     }
 }
 
-shipExplode(ship) {
+shipExplode(ship, player) {
     // temporarily hide ship
     ship.alpha = 0;
     // create explosion sprite at ship's position
@@ -201,13 +233,31 @@ shipExplode(ship) {
       ship.alpha = 1;                       // make ship visible again
       boom.destroy();                       // remove explosion sprite
       
+      
     });       
 
+
+     //score increases
+     if(player == "p1") 
+     {
+        this.p1Score += ship.points;
+        this.scoreLeft.text = this.p1Score;
+    }
+    else 
+    { 
+        this.p2Score += ship.points;
+        this.scoreRight.text = this.p2Score;
+    }
+
     //score add and repaint
-    this.p1Score += ship.points;
-    this.scoreLeft.text = this.p1Score;
+    // this.p1Score += ship.points;
+    // this.scoreLeft.text = this.p1Score;
+    //score p2
+    // this.p2Score += ship.points;
+    // this.scoreRight.text = this.p2Score;
    
     //this.sound.play('sfx_explosion');
-  }
-
 }
+}
+
+
