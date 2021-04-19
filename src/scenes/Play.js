@@ -19,7 +19,7 @@ create()
 {
     console.log("testing");
     //place tile sprite
-    this.starfield = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'forest').setOrigin(0,0);
+    this.forest = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'forest').setOrigin(0,0);
 
     //green UI Background
     this.add.rectangle(0,borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0,0);
@@ -95,7 +95,7 @@ update()
     }
 
     //updates tile sprite
-    this.starfield.tilePositionX -= 4;
+    this.forest.tilePositionX -= 4;
 
     this.p1Rocket.update();
 
