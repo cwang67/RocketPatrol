@@ -17,6 +17,7 @@ preload()
 
 create()
 {
+    console.log("testing");
     //place tile sprite
     this.starfield = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'forest').setOrigin(0,0);
 
