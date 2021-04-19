@@ -6,11 +6,11 @@ class Play extends Phaser.Scene {
 preload()
 {
     //loads images/tile sprites
-    this.load.image('banana', './assets/banana.png');
-    this.load.image('monkey', './assets/monkey.png');
-    this.load.image('forest', './assets/forest.png');
+    this.load.image('banana', '../assets/banana.png');
+    this.load.image('monkey', '../assets/monkey.png');
+    this.load.image('forest', '../assets/forest.png');
     //load spritesheet
-    this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 0});
+    this.load.spritesheet('explosion', '../assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 0});
 }
 
 
