@@ -10,6 +10,7 @@ preload()
     this.load.image('spaceship', './assets/spaceship.png');
     this.load.image('starfield', './assets/starfield.png');
     this.load.image('rocket2', './assets/rocket2.png');
+    this.load.image('new spaceship', './assets/enemyship.png');
   
     //load spritesheet
     this.load.spritesheet('explosion', '../assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 0});
@@ -48,6 +49,7 @@ create()
     this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
     this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
     this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
+    this.specialShip = new Spaceship(this,game.config.width, borderUISize*2, + borderPadding*4, 'new spaceship',0, 5).setOrigin(0,0);
 
     // define keys p1
     keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -69,22 +71,7 @@ create()
 
 
 
-    // backgroundMusic = false;
-    // backgroundMusic.loop = false;
-    // backgroundMusic = this.add.audio('bgm');
-    backgroundMusic = this.sound.add('bgm');
-    //playing bgm during game
-    if (this.scene.start == "playScene")
-    {
-        // backgroundMusic = true;
-        // backgroundMusic.loop = true;
-        backgroundMusic.play();
-    }
-    else
-    {
-        backgroundMusic.stop();
-    } 
-
+    
 
     //animation config
     this.anims.create({
@@ -130,6 +117,11 @@ create()
     this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
     this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
     this.gameOver = true;
+    if(this.gameOver = true)
+    {
+        backgroundMusic.stop();
+    }
+
 
     //update highscore
     this.playerHighScore = Math.max(this.p1Score, this.p2Score);
@@ -152,16 +144,14 @@ create()
         //highscore
         this.highScoreDisplay = this.add.text(game.config.width/2, 465, "High Score: " + highScore, scoreConfig).setOrigin(0.5)
 
-       
+      
 
-  
 }
+
 
 
 update()
 {
-    
-
      //update timer
      this.timer.text = (game.settings.gameTimer / 1000) - Math.floor(this.clock.getElapsedSeconds());
 
@@ -170,6 +160,7 @@ update()
     if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR))
     {
         this.scene.restart(this.p1Score);
+        backgroundMusic.play();
     }
 
     if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) 
@@ -195,6 +186,7 @@ update()
         this.ship01.update();               
         this.ship02.update();
         this.ship03.update();
+        this.specialShip.update();
     }
   
     // check collisions

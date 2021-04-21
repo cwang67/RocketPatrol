@@ -40,6 +40,9 @@ create()
 
       // displaying high score
       this.highScoreDisplay = this.add.text(game.config.width/2, game.config.height/2 + 64*3, "High Score: " + highScore, menuConfig).setOrigin(0.5);
+      backgroundMusic = this.sound.add('bgm');
+      backgroundMusic.setLoop(true);
+  
   
 }
 
@@ -50,10 +53,13 @@ update() {
       game.settings = 
       {
         spaceshipSpeed: 3,
-        gameTimer: 60000    
+        // gameTimer: 60000    
+        gameTimer: 10000    
+
       }
       this.sound.play('sfx_select');
       this.scene.start("playScene");    
+      backgroundMusic.play();
     }
     if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) 
     {
@@ -65,6 +71,8 @@ update() {
       }
       this.sound.play('sfx_select');
       this.scene.start("playScene");    
+      backgroundMusic.play();
+
     }
   }
 
