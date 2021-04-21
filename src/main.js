@@ -30,3 +30,6 @@ let keyF2, keyLEFT2, keyRIGHT2;
 
 // initializing high score
 let highScore = 0;
+
+//background music variable
+let backgroundMusic;
