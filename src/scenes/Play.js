@@ -22,7 +22,6 @@ preload()
 
 create()
 {
-    console.log('testing');
     //place tile sprite
     this.starfield = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'starfield').setOrigin(0,0);
     //green UI Background
@@ -47,7 +46,6 @@ create()
     this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
     this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
     this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
-    //need to fix borders
     this.specialShip = new Spaceship(this, game.config.width, 300, "ship", 0, 50).setOrigin(0 ,0);
 
     // define keys p1
@@ -217,7 +215,6 @@ update()
         this.p1Rocket.reset();
         this.shipExplode(this.ship02, "p1");
 
-      
     }
     else if(this.checkCollision(this.p2Rocket, this.ship02))
     {
@@ -309,23 +306,23 @@ shipExplode(ship, player) {
     let randomExplosion = Phaser.Math.Between(0, 4);
     if(randomExplosion == 0)
     {
-        this.sound.play('explosion1');
+        this.sound.play('sfx_explosion1');
     }
     if(randomExplosion == 1)
     {
-        this.sound.play('explosion2');
+        this.sound.play('sfx_explosion2');
     }
     if(randomExplosion == 2)
     {
-        this.sound.play('explosion3');
+        this.sound.play('sfx_explosion3');
     }
     if(randomExplosion == 3)
     {
-        this.sound.play('explosion4');
+        this.sound.play('sfx_explosion4');
     }
     if(randomExplosion == 4)
     {
-        this.sound.play('explosion5');
+        this.sound.play('sfx_explosion5');
     }
 }
     //this.sound.play('sfx_explosion');
