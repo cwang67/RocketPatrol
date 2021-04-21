@@ -5,17 +5,6 @@ let config = {
   scene: [ Menu, Play ]
 }
 
-// var config = {
-//   type: Phaser.WEBGL,
-//   width: 800,
-//   height: 600,
-//   backgroundColor: '#000',
-//   parent: 'phaser-example',
-//   scene: {
-//       preload: preload,
-//       create: create
-//   }
-// };
 
 // var game = new Phaser.Game(config);
 let game = new Phaser.Game(config);
