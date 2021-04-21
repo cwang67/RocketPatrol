@@ -69,6 +69,22 @@ create()
 
 
 
+    // backgroundMusic = false;
+    // backgroundMusic.loop = false;
+    // backgroundMusic = this.add.audio('bgm');
+    backgroundMusic = this.sound.add('bgm');
+    //playing bgm during game
+    if (this.scene.start == "playScene")
+    {
+        // backgroundMusic = true;
+        // backgroundMusic.loop = true;
+        backgroundMusic.play();
+    }
+    else
+    {
+        backgroundMusic.stop();
+    } 
+
 
     //animation config
     this.anims.create({
@@ -116,30 +132,39 @@ create()
     this.gameOver = true;
 
     //update highscore
-    this.pHigh = Math.max(this.p1Score, this.p2Score);
+    this.playerHighScore = Math.max(this.p1Score, this.p2Score);
 
-    if(highScore < this.pHigh)
-        highScore = this.pHigh;
+    if(highScore < this.playerHighScore)
+    {
+        highScore = this.playerHighScore;
+    }
 
     this.highScoreDisplay.text = "High Score: " + highScore;
    
   
     }, null, this);
 
-     //timer
-        scoreConfig.color = "#843605";
+        //creates timer
+         scoreConfig.color = "#843605";
         this.timer = this.add.text(game.config.width/2, 72, this.clock.getElapsedSeconds(), scoreConfig).setOrigin(0.5);
+       
 
         //highscore
         this.highScoreDisplay = this.add.text(game.config.width/2, 465, "High Score: " + highScore, scoreConfig).setOrigin(0.5)
 
+       
+
   
 }
 
+
 update()
 {
+    
+
      //update timer
      this.timer.text = (game.settings.gameTimer / 1000) - Math.floor(this.clock.getElapsedSeconds());
+
 
     //check key input for restarting the game
     if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR))
@@ -176,7 +201,8 @@ update()
     if(this.checkCollision(this.p1Rocket,this.ship03)) 
     {
         this.p1Rocket.reset();
-        this.shipExplode(this.ship03);
+        this.shipExplode(this.ship03, "p1");
+        
     }
     else if(this.checkCollision(this.p2Rocket,this.ship03))
         {
@@ -186,22 +212,26 @@ update()
     if (this.checkCollision(this.p1Rocket, this.ship02)) 
     {
         this.p1Rocket.reset();
-        this.shipExplode(this.ship02);
+        this.shipExplode(this.ship02, "p1");
+      
     }
     else if(this.checkCollision(this.p2Rocket, this.ship02))
     {
         this.p2Rocket.reset();
-        this.shipExplode(this.ship02);
+        this.shipExplode(this.ship02)
+     
     }
     if (this.checkCollision(this.p1Rocket, this.ship01)) 
     {
         this.p1Rocket.reset();
-        this.shipExplode(this.ship01);
+        this.shipExplode(this.ship01, "p1");
+     
     }
     else if(this.checkCollision(this.p2Rocket, this.ship01))
     {
         this.p2Rocket.reset();
         this.shipExplode(this.ship01);
+    
     }
   
 }
@@ -237,7 +267,7 @@ shipExplode(ship, player) {
     });       
 
 
-     //score increases
+     //increasing scores for players
      if(player == "p1") 
      {
         this.p1Score += ship.points;
